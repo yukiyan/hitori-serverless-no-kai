@@ -1,8 +1,10 @@
 const AWS = require('aws-sdk');
 const autoScaling = new AWS.AutoScaling();
 const ECS = new AWS.ECS();
+const S3 = new AWS.S3();
 
 module.exports.polling = (event, context, callback) => {
+  console.log('ポーリング中です...');
   const describeAutoScalingGroupsParams = {
     AutoScalingGroupNames: ['yukiyan-autoscaling-group-public'],
   };
@@ -19,9 +21,19 @@ module.exports.polling = (event, context, callback) => {
       const desiredCapacity = responses[0].AutoScalingGroups[0].DesiredCapacity;
       const containerInstances = responses[1].containerInstanceArns.length;
       if (desiredCapacity === containerInstances) {
+        console.log('スケール完了');
         callback(null, 'スケール完了');
       } else {
-        callback(null, 'スケール未完了');
+        const putObjectParams = {
+          Bucket: 'yukiyan-lambda-polling',
+          Key: 'kick',
+          Body: 'invoke...',
+        };
+        setTimeout(() => {
+          console.log('ポーリング中です...');
+        }, 10000);
+        S3.putObject(putObjectParams).promise();
+        callback(null, 'ポーリング中です...');
       }
     })
     .catch((error) => {

@@ -40,6 +40,20 @@ provider:
         Fn::Join:
           - ""
           - - "*"
+    - Effect: "Allow"
+      Action:
+        - "lambda:*"
+      Resource:
+        Fn::Join:
+          - ""
+          - - "*"
+    - Effect: "Allow"
+      Action:
+        - "s3:*"
+      Resource:
+        Fn::Join:
+          - ""
+          - - "*"
 # you can add packaging information here
 package:
  exclude:
@@ -59,6 +73,10 @@ functions:
     handler: src/handler.hello
   polling:
     handler: src/polling.polling
+    events:
+      - s3:
+          bucket: polling
+          event: s3:ObjectCreated:*
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

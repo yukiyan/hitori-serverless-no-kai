@@ -1,5 +1,6 @@
 const AWS = require('aws-sdk');
 const autoScaling = new AWS.AutoScaling();
+const lambda = new AWS.Lambda();
 
 module.exports.hello = (event, context, callback) => {
   const describeAutoScalingGroupsParams = {
@@ -18,7 +19,12 @@ module.exports.hello = (event, context, callback) => {
     })
     .then((response) => {
       console.log(response);
-      callback(null, response);
+      const invokeParams = {
+        FunctionName: 'yukiyan-service-dev-polling',
+        InvocationType: 'Event',
+      };
+      lambda.invoke(invokeParams);
+      callback(null, 'ポーリング用のlambda functionを呼びました');
     })
     .catch((error) => {
       console.log(error, error.stack);
