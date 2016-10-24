@@ -56,10 +56,6 @@ package:
 functions:
   hello:
     handler: src/handler.hello
-    events:
-      - sns:
-          topicName: asg-notification
-          displayName: Notification from Auto Scaling Group
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
