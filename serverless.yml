@@ -18,6 +18,7 @@ provider:
   runtime: nodejs4.3
   region: ap-northeast-1
   memorySize: 128
+  timeout: 300
 
 # you can overwrite defaults here
 #  stage: dev
