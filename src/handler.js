@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports.hello = (event, context, callback) => {
   const response = {
     statusCode: 200,
@@ -9,7 +7,6 @@ module.exports.hello = (event, context, callback) => {
     }),
   };
 
-  console.log(JSON.stringify(event.Records[0].Sns.Message));
   callback(null, response);
 
   // Use this code if you don't use the http event with the LAMBDA-PROXY integration
