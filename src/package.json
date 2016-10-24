@@ -1,0 +1,19 @@
+{
+  "name": "hello",
+  "version": "0.0.1",
+  "description": "hello",
+  "main": "handler.js",
+  "repository": {
+    "url": "https://github.com/yukiyan/hitori-serverless-no-kai",
+    "type": "git"
+  },
+  "author": "yukiyan",
+  "license": "MIT",
+  "engines": {
+    "node": "4.3.2"
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "aws-sdk": "^2.6.11"
+  }
+}
